@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import Parse
+import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = "b1a36e063072124eaaaa6df8b6ddfc793f23260f"
+            $0.clientKey = "4ef9e1ac5997eedfe9db47c89ffacc1d1a347b8c"
+            $0.server = "http://ec2-18-220-222-195.us-east-2.compute.amazonaws.com/parse"
+        }
+        Parse.initialize(with: configuration)
+        GMSServices.provideAPIKey("AIzaSyBlVOyMLjnJU8ucHv37ZIEYzKLdNv8pfvY")
+        GMSPlacesClient.provideAPIKey("AIzaSyBlVOyMLjnJU8ucHv37ZIEYzKLdNv8pfvY")
+
         return true
     }
 
@@ -81,8 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+               
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }

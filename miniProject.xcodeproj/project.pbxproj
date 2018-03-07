@@ -8,13 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		7B7DEEED204815860054D6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEEEC204815860054D6D0 /* AppDelegate.swift */; };
-		7B7DEEEF204815860054D6D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEEEE204815860054D6D0 /* ViewController.swift */; };
-		7B7DEEF2204815860054D6D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7DEEF0204815860054D6D0 /* Main.storyboard */; };
+		7B7DEEEF204815860054D6D0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEEEE204815860054D6D0 /* LoginViewController.swift */; };
 		7B7DEEF5204815860054D6D0 /* miniProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEEF3204815860054D6D0 /* miniProject.xcdatamodeld */; };
 		7B7DEEF7204815860054D6D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B7DEEF6204815860054D6D0 /* Assets.xcassets */; };
 		7B7DEEFA204815860054D6D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7DEEF8204815860054D6D0 /* LaunchScreen.storyboard */; };
 		7B7DEF05204815860054D6D0 /* miniProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEF04204815860054D6D0 /* miniProjectTests.swift */; };
 		7B7DEF10204815860054D6D0 /* miniProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEF0F204815860054D6D0 /* miniProjectUITests.swift */; };
+		7B98C5E8204FE53900466BE7 /* ChooseImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B98C5E7204FE53900466BE7 /* ChooseImageViewController.swift */; };
+		7BD85D5B204D170B006C71D6 /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7BD85D5A204D170B006C71D6 /* 2.jpg */; };
+		7BD85D5D204D17E0006C71D6 /* HomeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD85D5C204D17E0006C71D6 /* HomeCollectionViewController.swift */; };
+		7BD85D60204D1CDF006C71D6 /* AddMemoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD85D5E204D1CDF006C71D6 /* AddMemoryCollectionViewCell.swift */; };
+		7BD85D61204D1CDF006C71D6 /* AddMemoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD85D5F204D1CDF006C71D6 /* AddMemoryCollectionViewCell.xib */; };
+		7BD85D64204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD85D62204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.swift */; };
+		7BD85D65204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD85D63204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.xib */; };
+		7BD85D68204E8324006C71D6 /* CreateMemoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD85D66204E8324006C71D6 /* CreateMemoryViewController.swift */; };
+		7BD85D6B204FBD80006C71D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BD85D6A204FBD80006C71D6 /* Main.storyboard */; };
+		7BD85D6D204FC25D006C71D6 /* ChooseLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD85D6C204FC25D006C71D6 /* ChooseLocationViewController.swift */; };
+		ECD35A96F6866FAE93BEDA30 /* Pods_miniProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8E7EC7B15F910D162A410F /* Pods_miniProject.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,10 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DDC11EA24EF20DDCF628193 /* Pods-miniProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miniProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-miniProject/Pods-miniProject.release.xcconfig"; sourceTree = "<group>"; };
+		6F23B0C00F258B2CF70A0A6E /* Pods-miniProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miniProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-miniProject/Pods-miniProject.debug.xcconfig"; sourceTree = "<group>"; };
 		7B7DEEE9204815860054D6D0 /* miniProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7DEEEC204815860054D6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7B7DEEEE204815860054D6D0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7B7DEEF1204815860054D6D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7B7DEEEE204815860054D6D0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7B7DEEF4204815860054D6D0 /* miniProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = miniProject.xcdatamodel; sourceTree = "<group>"; };
 		7B7DEEF6204815860054D6D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B7DEEF9204815860054D6D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +60,17 @@
 		7B7DEF0B204815860054D6D0 /* miniProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = miniProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7DEF0F204815860054D6D0 /* miniProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = miniProjectUITests.swift; sourceTree = "<group>"; };
 		7B7DEF11204815860054D6D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B98C5E7204FE53900466BE7 /* ChooseImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseImageViewController.swift; sourceTree = "<group>"; };
+		7BD85D5A204D170B006C71D6 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		7BD85D5C204D17E0006C71D6 /* HomeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewController.swift; sourceTree = "<group>"; };
+		7BD85D5E204D1CDF006C71D6 /* AddMemoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BD85D5F204D1CDF006C71D6 /* AddMemoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddMemoryCollectionViewCell.xib; sourceTree = "<group>"; };
+		7BD85D62204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMemoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BD85D63204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewMemoryCollectionViewCell.xib; sourceTree = "<group>"; };
+		7BD85D66204E8324006C71D6 /* CreateMemoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMemoryViewController.swift; sourceTree = "<group>"; };
+		7BD85D6A204FBD80006C71D6 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		7BD85D6C204FC25D006C71D6 /* ChooseLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationViewController.swift; sourceTree = "<group>"; };
+		DD8E7EC7B15F910D162A410F /* Pods_miniProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_miniProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD35A96F6866FAE93BEDA30 /* Pods_miniProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +99,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3EF77C4AD7E00F9ABE3E6004 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD8E7EC7B15F910D162A410F /* Pods_miniProject.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		75A44899BC79253C40E7F4D8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6F23B0C00F258B2CF70A0A6E /* Pods-miniProject.debug.xcconfig */,
+				0DDC11EA24EF20DDCF628193 /* Pods-miniProject.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		7B7DEEE0204815860054D6D0 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +123,8 @@
 				7B7DEF03204815860054D6D0 /* miniProjectTests */,
 				7B7DEF0E204815860054D6D0 /* miniProjectUITests */,
 				7B7DEEEA204815860054D6D0 /* Products */,
+				75A44899BC79253C40E7F4D8 /* Pods */,
+				3EF77C4AD7E00F9ABE3E6004 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,11 +142,20 @@
 			isa = PBXGroup;
 			children = (
 				7B7DEEEC204815860054D6D0 /* AppDelegate.swift */,
-				7B7DEEEE204815860054D6D0 /* ViewController.swift */,
-				7B7DEEF0204815860054D6D0 /* Main.storyboard */,
+				7BD85D6A204FBD80006C71D6 /* Main.storyboard */,
+				7B7DEEEE204815860054D6D0 /* LoginViewController.swift */,
+				7BD85D5C204D17E0006C71D6 /* HomeCollectionViewController.swift */,
+				7BD85D66204E8324006C71D6 /* CreateMemoryViewController.swift */,
+				7BD85D5E204D1CDF006C71D6 /* AddMemoryCollectionViewCell.swift */,
+				7BD85D5F204D1CDF006C71D6 /* AddMemoryCollectionViewCell.xib */,
+				7BD85D62204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.swift */,
+				7BD85D63204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.xib */,
+				7BD85D6C204FC25D006C71D6 /* ChooseLocationViewController.swift */,
+				7B98C5E7204FE53900466BE7 /* ChooseImageViewController.swift */,
 				7B7DEEF6204815860054D6D0 /* Assets.xcassets */,
 				7B7DEEF8204815860054D6D0 /* LaunchScreen.storyboard */,
 				7B7DEEFB204815860054D6D0 /* Info.plist */,
+				7BD85D5A204D170B006C71D6 /* 2.jpg */,
 				7B7DEEF3204815860054D6D0 /* miniProject.xcdatamodeld */,
 			);
 			path = miniProject;
@@ -135,9 +186,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B7DEF14204815860054D6D0 /* Build configuration list for PBXNativeTarget "miniProject" */;
 			buildPhases = (
+				F8A743D7613718B81F8905F1 /* [CP] Check Pods Manifest.lock */,
 				7B7DEEE5204815860054D6D0 /* Sources */,
 				7B7DEEE6204815860054D6D0 /* Frameworks */,
 				7B7DEEE7204815860054D6D0 /* Resources */,
+				101892A6528F57EECCA10768 /* [CP] Embed Pods Frameworks */,
+				86057E5593AE18FCAA1979C4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -237,7 +291,10 @@
 			files = (
 				7B7DEEFA204815860054D6D0 /* LaunchScreen.storyboard in Resources */,
 				7B7DEEF7204815860054D6D0 /* Assets.xcassets in Resources */,
-				7B7DEEF2204815860054D6D0 /* Main.storyboard in Resources */,
+				7BD85D5B204D170B006C71D6 /* 2.jpg in Resources */,
+				7BD85D6B204FBD80006C71D6 /* Main.storyboard in Resources */,
+				7BD85D61204D1CDF006C71D6 /* AddMemoryCollectionViewCell.xib in Resources */,
+				7BD85D65204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,14 +314,85 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		101892A6528F57EECCA10768 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-miniProject/Pods-miniProject-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/GooglePlacesSearchController/GooglePlacesSearchController.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GooglePlacesSearchController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-miniProject/Pods-miniProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86057E5593AE18FCAA1979C4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-miniProject/Pods-miniProject-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-miniProject/Pods-miniProject-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8A743D7613718B81F8905F1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-miniProject-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7B7DEEE5204815860054D6D0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B7DEEEF204815860054D6D0 /* ViewController.swift in Sources */,
+				7BD85D64204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.swift in Sources */,
+				7B98C5E8204FE53900466BE7 /* ChooseImageViewController.swift in Sources */,
+				7B7DEEEF204815860054D6D0 /* LoginViewController.swift in Sources */,
+				7BD85D68204E8324006C71D6 /* CreateMemoryViewController.swift in Sources */,
+				7BD85D5D204D17E0006C71D6 /* HomeCollectionViewController.swift in Sources */,
+				7BD85D60204D1CDF006C71D6 /* AddMemoryCollectionViewCell.swift in Sources */,
 				7B7DEEF5204815860054D6D0 /* miniProject.xcdatamodeld in Sources */,
 				7B7DEEED204815860054D6D0 /* AppDelegate.swift in Sources */,
+				7BD85D6D204FC25D006C71D6 /* ChooseLocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,14 +428,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7B7DEEF0204815860054D6D0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7B7DEEF1204815860054D6D0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		7B7DEEF8204815860054D6D0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -428,6 +548,7 @@
 		};
 		7B7DEF15204815860054D6D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F23B0C00F258B2CF70A0A6E /* Pods-miniProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -442,6 +563,7 @@
 		};
 		7B7DEF16204815860054D6D0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DDC11EA24EF20DDCF628193 /* Pods-miniProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
