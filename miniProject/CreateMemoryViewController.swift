@@ -15,6 +15,7 @@ class CreateMemoryViewController: UIViewController {
     @IBOutlet weak var chooseImageButton: UIButton!
     @IBOutlet weak var chooseVideoButton: UIButton!
     @IBOutlet weak var chooseLocationButton: UIButton!
+    var image:UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,8 @@ class CreateMemoryViewController: UIViewController {
     }
     
     @IBAction func chooseVideo(_ sender: Any) {
-        
+        self.performSegue(withIdentifier: "ChooseVideo" , sender: self)
+
     }
     
     @IBAction func chooseLocation(_ sender: Any) {

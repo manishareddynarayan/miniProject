@@ -10,8 +10,10 @@ import UIKit
 import Parse
 
 class HomeCollectionViewController: UICollectionViewController {
-    var images:[String] = ["2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg","2.jpg"]
-    
+//    var imageFiles = [PFObject]()
+    var imageFiles = [PFFile]()
+    var backgroundImage = UIImage()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let cgFloat: CGFloat = 250.0
@@ -26,8 +28,14 @@ class HomeCollectionViewController: UICollectionViewController {
         collectionView?.collectionViewLayout = layout
         collectionView?.register(UINib(nibName:"AddMemoryCollectionViewCell",bundle: nil), forCellWithReuseIdentifier: "AddCell")
         collectionView?.register(UINib(nibName:"ViewMemoryCollectionViewCell",bundle: nil), forCellWithReuseIdentifier: "ViewCell")
+        
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getImages()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -35,8 +43,38 @@ class HomeCollectionViewController: UICollectionViewController {
     //        return images.count
     //    }
     
+    func getImages() -> Void {
+        let query = PFQuery(className: "Memory")
+        
+        query.whereKey("userid", equalTo: PFUser.current()?.objectId!)
+        
+        query.findObjectsInBackground{ (objects, error) -> Void in
+            if error == nil {
+                print("OK")
+                if let posts = objects {
+                    for object in posts {
+                        print("IN FOR")
+                        if object["imageFile"] != nil {
+//                            self.imageFiles.append(object["imageFile"] as! PFObject)
+                            
+                            self.imageFiles.append(object["imageFile"] as! PFFile)
+
+                            
+                        }
+                        if object["thumbnail"] != nil {
+//                            self.imageFiles.append(object["thumbnail"] as! PFObject)
+                            self.imageFiles.append(object["thumbnail"] as! PFFile)
+
+                        }
+                        self.collectionView?.reloadData()
+                        
+                    }
+                }
+            }
+        }
+    }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return imageFiles.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -49,8 +87,43 @@ class HomeCollectionViewController: UICollectionViewController {
         }
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ViewCell", for: indexPath) as! ViewMemoryCollectionViewCell
-            let iconName = images[indexPath.row]
-            cell.imageView?.image = UIImage(named: iconName)
+            let query = PFQuery(className: "Memory")
+            
+            query.whereKey("userid", equalTo: PFUser.current()?.objectId!)
+            
+            query.findObjectsInBackground{ (objects, error) -> Void in
+                if error == nil {
+                    print("OK")
+                    if let posts = objects {
+                        for object in posts {
+                            if object["type"] != nil {
+                                self.imageFiles[indexPath.row].getDataInBackground { (data, error) in
+                                    if let imageData = data {
+                                        if let imageToDispaly = UIImage(data: imageData) {
+                                            cell.imageView.image = imageToDispaly
+                                        }
+                                    }
+                                    
+                                }
+                                
+                            }
+                            self.imageFiles[indexPath.row].getDataInBackground { (data, error) in
+                                if let imageData = data {
+                                    if let imageToDispaly = UIImage(data: imageData) {
+//                                        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+//                                        backgroundImage.image = imageToDispaly
+//                                        cell.imageView.insertSubview(backgroundImage, at: indexPath.row)
+//
+                                        cell.imageView.image = imageToDispaly
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
             cell.layer.borderWidth = 2.5
             cell.layer.borderColor = UIColor.darkGray.cgColor
             return cell
