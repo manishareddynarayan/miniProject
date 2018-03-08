@@ -21,13 +21,10 @@ class ChooseVideoViewController: UIViewController,UINavigationControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         galleryVideo()
-        
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     func galleryVideo()
     {
@@ -51,13 +48,7 @@ class ChooseVideoViewController: UIViewController,UINavigationControllerDelegate
             if let imageData = UIImagePNGRepresentation(videoThumbnail) {
                 let imageFile = PFFile(name: "thubnail.png", data: imageData)
                 memory["thumbnail"] = imageFile
-//                memory.saveInBackground(block: { (success,error) in
-//                    if success {
-//                        print("Save successful")
-//                    } else {
-//                        print("Save unsuccessful: \(String(describing: error?.localizedDescription))")
-//                    }
-//                })
+                
             }
         }
         
@@ -77,17 +68,12 @@ class ChooseVideoViewController: UIViewController,UINavigationControllerDelegate
         self.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
-    }
 }
 
 extension AVAsset{
     var videoThumbnail:UIImage?{
-        
         let assetImageGenerator = AVAssetImageGenerator(asset: self)
         assetImageGenerator.appliesPreferredTrackTransform = true
-        
         var time = self.duration
         time.value = min(time.value, 2)
         
@@ -95,29 +81,15 @@ extension AVAsset{
             let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
             let thumbNail = UIImage.init(cgImage: imageRef)
             print("Video Thumbnail genertated successfuly")
-            
             return thumbNail
             
         } catch {
-            
             print("error getting thumbnail video")
             return nil
-            
-            
         }
         
     }
 }
 
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
 
 
