@@ -44,25 +44,23 @@ class ChooseVideoViewController: UIViewController,UINavigationControllerDelegate
         
         let ass = AVAsset(url:videoURL! as URL)
         if let videoThumbnail = ass.videoThumbnail{
-            
-            if let imageData = UIImagePNGRepresentation(videoThumbnail) {
-                let imageFile = PFFile(name: "thubnail.png", data: imageData)
-                memory["thumbnail"] = imageFile
+            let viewControllers = self.navigationController!.viewControllers as [UIViewController];
+            for aViewController:UIViewController in viewControllers {
+                if aViewController.isKind(of: CreateMemoryViewController.self) {
+                    (aViewController as? CreateMemoryViewController)?.videoThumbnail = videoThumbnail
+                    
+                }
                 
             }
         }
         
         let videoData = NSData(contentsOfFile:(videoURL?.relativePath!)!)
-        let videoFile:PFFile = PFFile(name:"consent.mp4", data:videoData! as Data)!
-        memory["videoFile"] = videoFile
-        self.dismiss(animated: true, completion: nil)
-        memory.saveInBackground { (succeeded, error) -> Void in
-            if succeeded {
-                print("Save successful")
-            } else {
-                print("Save unsuccessful: \(String(describing: error?.localizedDescription))")
+        let viewControllers = self.navigationController!.viewControllers as [UIViewController];
+        for aViewController:UIViewController in viewControllers {
+            if aViewController.isKind(of: CreateMemoryViewController.self) {
+                (aViewController as? CreateMemoryViewController)?.video = videoData
+                
             }
-            
         }
         print("videoURL:\(String(describing: videoURL))")
         self.dismiss(animated: true, completion: nil)

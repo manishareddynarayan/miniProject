@@ -8,6 +8,7 @@
 
 import UIKit
 import GooglePlaces
+import Parse
 
 class ChooseLocationViewController: UIViewController {
     var resultsViewController: GMSAutocompleteResultsViewController?
@@ -36,8 +37,15 @@ class ChooseLocationViewController: UIViewController {
 extension ChooseLocationViewController: GMSAutocompleteResultsViewControllerDelegate {
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didAutocompleteWith place: GMSPlace) {
-        searchController?.isActive = false
-        // Do something with the selected place.
+        searchController?.isActive = true
+        searchController?.searchBar.text = place.name
+        let viewControllers = self.navigationController!.viewControllers as [UIViewController];
+        for aViewController:UIViewController in viewControllers {
+            if aViewController.isKind(of: CreateMemoryViewController.self) {
+                (aViewController as? CreateMemoryViewController)?.userLocation = searchController?.searchBar.text
+            }
+        }
+        
         print("Place name: \(place.name)")
         print("Place address: \(String(describing: place.formattedAddress))")
         print("Place attributions: \(String(describing: place.attributions))")
@@ -45,7 +53,6 @@ extension ChooseLocationViewController: GMSAutocompleteResultsViewControllerDele
     
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didFailAutocompleteWithError error: Error){
-        // TODO: handle the error.
         print("Error: ", error.localizedDescription)
     }
     

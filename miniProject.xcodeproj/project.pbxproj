@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B6D1AA02052B36A00E6C133 /* PreviewImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D1A9F2052B36A00E6C133 /* PreviewImageViewController.swift */; };
 		7B7DEEED204815860054D6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEEEC204815860054D6D0 /* AppDelegate.swift */; };
 		7B7DEEEF204815860054D6D0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEEEE204815860054D6D0 /* LoginViewController.swift */; };
 		7B7DEEF5204815860054D6D0 /* miniProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEEF3204815860054D6D0 /* miniProject.xcdatamodeld */; };
@@ -48,6 +49,7 @@
 /* Begin PBXFileReference section */
 		0DDC11EA24EF20DDCF628193 /* Pods-miniProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miniProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-miniProject/Pods-miniProject.release.xcconfig"; sourceTree = "<group>"; };
 		6F23B0C00F258B2CF70A0A6E /* Pods-miniProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-miniProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-miniProject/Pods-miniProject.debug.xcconfig"; sourceTree = "<group>"; };
+		7B6D1A9F2052B36A00E6C133 /* PreviewImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageViewController.swift; sourceTree = "<group>"; };
 		7B7DEEE9204815860054D6D0 /* miniProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7DEEEC204815860054D6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B7DEEEE204815860054D6D0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				7B7DEEEE204815860054D6D0 /* LoginViewController.swift */,
 				7BD85D5C204D17E0006C71D6 /* HomeCollectionViewController.swift */,
 				7BD85D66204E8324006C71D6 /* CreateMemoryViewController.swift */,
+				7B6D1A9F2052B36A00E6C133 /* PreviewImageViewController.swift */,
 				7BD85D5E204D1CDF006C71D6 /* AddMemoryCollectionViewCell.swift */,
 				7BD85D5F204D1CDF006C71D6 /* AddMemoryCollectionViewCell.xib */,
 				7BD85D62204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.swift */,
@@ -394,6 +397,7 @@
 				7BD85D68204E8324006C71D6 /* CreateMemoryViewController.swift in Sources */,
 				7BD85D5D204D17E0006C71D6 /* HomeCollectionViewController.swift in Sources */,
 				7BD85D60204D1CDF006C71D6 /* AddMemoryCollectionViewCell.swift in Sources */,
+				7B6D1AA02052B36A00E6C133 /* PreviewImageViewController.swift in Sources */,
 				7B7DEEF5204815860054D6D0 /* miniProject.xcdatamodeld in Sources */,
 				7B7DEEED204815860054D6D0 /* AppDelegate.swift in Sources */,
 				7BD85D6D204FC25D006C71D6 /* ChooseLocationViewController.swift in Sources */,
