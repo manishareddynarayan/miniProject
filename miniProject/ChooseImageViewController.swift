@@ -8,12 +8,18 @@
 
 import UIKit
 import Parse
+protocol ChooseImageViewControllerDelegate {
+    func finishPassingImage(controller: ChooseImageViewController)
+}
 class ChooseImageViewController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @IBOutlet weak var gotoGallery: UIButton!
     @IBOutlet weak var ChooseImageView: UIImageView!
+    @IBOutlet weak var imageDone: UIButton!
+    var delegate: ChooseImageViewControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         gotoGallery.buttonShape()
+        imageDone.buttonShape()
     }
     
     override func didReceiveMemoryWarning() {
@@ -27,9 +33,15 @@ class ChooseImageViewController: UIViewController,UINavigationControllerDelegate
         self.present(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func doneImageOnClick(_ sender: Any) {
+        delegate?.finishPassingImage(controller: self)
+        
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             ChooseImageView.image = image
+            self.imageDone.isHidden = false
             let viewControllers = self.navigationController!.viewControllers as [UIViewController];
             for aViewController:UIViewController in viewControllers {
                 if aViewController.isKind(of: CreateMemoryViewController.self) {
@@ -44,6 +56,6 @@ class ChooseImageViewController: UIViewController,UINavigationControllerDelegate
         }
         self.dismiss(animated: true, completion: nil)
     }
-   
+    
     
 }

@@ -10,7 +10,8 @@ import UIKit
 import CoreLocation
 import TextFieldEffects
 import Parse
-class CreateMemoryViewController: UIViewController {
+class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDelegate ,ChooseVideoViewControllerDelegate, ChooseLocationViewControllerDelegate{
+    
     @IBOutlet weak var titleTextField: JiroTextField!
     @IBOutlet weak var chooseImageButton: UIButton!
     @IBOutlet weak var chooseVideoButton: UIButton!
@@ -31,9 +32,7 @@ class CreateMemoryViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
     
     @IBAction func chooseImage(_ sender: Any) {
         self.performSegue(withIdentifier: "ChooseImage", sender: self)
@@ -41,7 +40,6 @@ class CreateMemoryViewController: UIViewController {
     
     @IBAction func chooseVideo(_ sender: Any) {
         self.performSegue(withIdentifier: "ChooseVideo" , sender: self)
-        
     }
     
     @IBAction func chooseLocation(_ sender: Any) {
@@ -115,16 +113,29 @@ class CreateMemoryViewController: UIViewController {
             
         }
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    func finishPassingVideo(controller: ChooseVideoViewController) {
+        print("videoChoosen")
+        chooseImageButton.isUserInteractionEnabled = false
+        controller.navigationController?.popViewController(animated: true)
+    }
+    func finishPassingImage(controller: ChooseImageViewController) {
+        print("image choosen")
+        chooseVideoButton.isUserInteractionEnabled = false
+        controller.navigationController?.popViewController(animated: true)
+    }
+    func finishPassingLocation(controller: ChooseLocationViewController) {
+        controller.navigationController?.popViewController(animated: true)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ChooseImageViewController {
+            destination.delegate = self
+        }
+        if let destination = segue.destination as? ChooseVideoViewController {
+            destination.delegate = self
+        }
+        if let destination = segue.destination as? ChooseLocationViewController {
+            destination.delegate = self
+        }
+    }
 }
 

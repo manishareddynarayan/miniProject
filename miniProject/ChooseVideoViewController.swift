@@ -13,19 +13,21 @@ import Parse
 import MediaPlayer
 import Foundation
 import SystemConfiguration
+protocol ChooseVideoViewControllerDelegate {
+    func finishPassingVideo(controller: ChooseVideoViewController)
+}
 
 class ChooseVideoViewController: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    var videoURL: NSURL?
+    var videoURL: URL?
     let videoPicker = UIImagePickerController()
-    
+    var delegate: ChooseVideoViewControllerDelegate?
+    @IBOutlet weak var videoDone: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         galleryVideo()
+        videoDone.buttonShape()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     func galleryVideo()
     {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum) {
@@ -37,35 +39,34 @@ class ChooseVideoViewController: UIViewController,UINavigationControllerDelegate
             self.present(videoPicker, animated: true, completion: nil)
         }
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let memory = PFObject(className:"Memory")
         memory["userid"] = PFUser.current()?.objectId
-        videoURL = (info[UIImagePickerControllerMediaURL] as? NSURL)
-        
-        let ass = AVAsset(url:videoURL! as URL)
-        if let videoThumbnail = ass.videoThumbnail{
-            let viewControllers = self.navigationController!.viewControllers as [UIViewController];
-            for aViewController:UIViewController in viewControllers {
-                if aViewController.isKind(of: CreateMemoryViewController.self) {
-                    (aViewController as? CreateMemoryViewController)?.videoThumbnail = videoThumbnail
+        videoURL = (info[UIImagePickerControllerMediaURL] as? URL)
+        if let url = videoURL {
+            let ass = AVAsset(url:url as URL)
+            let videoData = NSData(contentsOfFile:(url.relativePath))
+            self.videoDone.isHidden = false
+            if let videoThumbnail = ass.videoThumbnail{
+                let viewControllers = self.navigationController!.viewControllers as [UIViewController];
+                for aViewController:UIViewController in viewControllers {
+                    if aViewController.isKind(of: CreateMemoryViewController.self) {
+                        (aViewController as? CreateMemoryViewController)?.videoThumbnail = videoThumbnail
+                        (aViewController as? CreateMemoryViewController)?.video = videoData
+                    }
                     
                 }
-                
-            }
-        }
-        
-        let videoData = NSData(contentsOfFile:(videoURL?.relativePath!)!)
-        let viewControllers = self.navigationController!.viewControllers as [UIViewController];
-        for aViewController:UIViewController in viewControllers {
-            if aViewController.isKind(of: CreateMemoryViewController.self) {
-                (aViewController as? CreateMemoryViewController)?.video = videoData
-                
             }
         }
         print("videoURL:\(String(describing: videoURL))")
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func videoDoneOnClick(_ sender: Any) {
+        delegate?.finishPassingVideo(controller: self)
+        
+    }
 }
 
 extension AVAsset{
