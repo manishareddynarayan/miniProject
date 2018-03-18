@@ -15,15 +15,20 @@ class ChooseImageViewController: UIViewController,UINavigationControllerDelegate
     @IBOutlet weak var gotoGallery: UIButton!
     @IBOutlet weak var ChooseImageView: UIImageView!
     @IBOutlet weak var imageDone: UIButton!
+    @IBOutlet weak var backgroundView: UIImageView!
     var delegate: ChooseImageViewControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         gotoGallery.buttonShape()
         imageDone.buttonShape()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func displayAlert(title:String,message:String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            print("image selected")
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func gotoGalleryOnClick(_ sender: Any) {
@@ -35,20 +40,21 @@ class ChooseImageViewController: UIViewController,UINavigationControllerDelegate
     
     @IBAction func doneImageOnClick(_ sender: Any) {
         delegate?.finishPassingImage(controller: self)
-        
     }
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             ChooseImageView.image = image
+            displayAlert(title: "Successful", message: "Click Done to save the image")
             self.imageDone.isHidden = false
+            self.ChooseImageView.isHidden = false
+            self.backgroundView.isHidden = true
+            
             let viewControllers = self.navigationController!.viewControllers as [UIViewController];
             for aViewController:UIViewController in viewControllers {
                 if aViewController.isKind(of: CreateMemoryViewController.self) {
                     (aViewController as? CreateMemoryViewController)?.image = image
                 }
             }
-            
         }
         else
         {
@@ -56,6 +62,4 @@ class ChooseImageViewController: UIViewController,UINavigationControllerDelegate
         }
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
 }

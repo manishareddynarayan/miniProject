@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class HomeCollectionViewController: UICollectionViewController,UISearchBarDelegate{
+class HomeCollectionViewController: UICollectionViewController,UISearchBarDelegate,ViewMemoryCollectionViewCellDelegate{
     var searchController = UISearchController()
     var imageFiles = [PFFile]()
     var files = [PFObject]()
@@ -17,7 +17,10 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
     var searchElements = [""]
     var isSearch = false
     var searchedArray = [PFObject]()
-    
+    var cache:NSCache<AnyObject, AnyObject>!
+    var delegate: ViewMemoryCollectionViewCellDelegate?
+    @IBOutlet weak var searchbutton: UIBarButtonItem!
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         let cgFloat: CGFloat = 250.0
@@ -29,31 +32,37 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 5
         collectionView?.collectionViewLayout = layout
+        collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
         collectionView?.register(UINib(nibName:"AddMemoryCollectionViewCell",bundle: nil), forCellWithReuseIdentifier: "AddCell")
         collectionView?.register(UINib(nibName:"ViewMemoryCollectionViewCell",bundle: nil), forCellWithReuseIdentifier: "ViewCell")
+        navigationItem.rightBarButtonItem = editButtonItem
+        editButtonItem.tintColor = UIColor.black
+        self.cache = NSCache()
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getImages()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func displayAlert(title:String,message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            print("no results")
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
-    
     func getImages() -> Void {
         let query = PFQuery(className: "Memory")
         query.whereKey("userid", equalTo: PFUser.current()?.objectId!)
         query.findObjectsInBackground{ (objects, error) -> Void in
             if error == nil {
                 print("OK")
-                self.files.removeAll()
                 self.files = objects!.reversed()
-                
                 DispatchQueue.main.async {
                     self.collectionView?.reloadData()
+                    self.collectionView?.collectionViewLayout.invalidateLayout()
                 }
+            }else{
+                print("error")
             }
         }
     }
@@ -62,9 +71,7 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             return searchedArray.count
         }
         return (files.count + 1)
-        
     }
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ViewCell", for: indexPath) as! ViewMemoryCollectionViewCell
         if(isSearch) {
@@ -73,16 +80,19 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             var location:String!
             var title:String!
             var date:String!
+            var objectId: String?
+            location = object["location"] as? String
+            if((location == nil)){
+                location = ""
+            }
             if object["imageFile"] != nil {
                 imageFile = object["imageFile"] as! PFFile
-                location = object["location"] as! String
                 title = object["title"] as! String
                 date = object["date"] as! String
                 cell.playImage.isHidden = true
             }
             else {
                 imageFile = object["thumbnail"] as! PFFile
-                location = object["location"] as! String
                 title = object["title"] as! String
                 date = object["date"] as! String
                 cell.playImage.isHidden = false
@@ -91,7 +101,6 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
                 if error == nil {
                     if let imageToDispaly = UIImage(data: data!) {
                         cell.imageView.image = imageToDispaly
-                        
                     }
                 }
             })
@@ -111,44 +120,59 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             } else {
                 let object = files[indexPath.row - 1]
                 var imageFile:PFFile!
-                var location:String!
+                var location:String?
                 var title:String!
                 var date:String!
+                var objectId:String?
+                location = object["location"] as? String
+                if((location == nil)){
+                    location = ""
+                }
                 if object["imageFile"] != nil {
                     imageFile = object["imageFile"] as! PFFile
-                    location = object["location"] as! String
                     title = object["title"] as! String
                     date = object["date"] as! String
                     cell.playImage.isHidden = true
                 }
                 else {
                     imageFile = object["thumbnail"] as! PFFile
-                    location = object["location"] as! String
                     title = object["title"] as! String
                     date = object["date"] as! String
                     cell.playImage.isHidden = false
                 }
-                imageFile.getDataInBackground(block: { (data, error) in
-                    if error == nil {
-                        if let imageToDispaly = UIImage(data: data!) {
-                            cell.imageView.image = imageToDispaly
+                objectId = object.objectId
+                if ((objectId == nil)){
+                    print("no object")
+                }
+                if (self.cache.object(forKey: objectId as AnyObject) != nil){
+                    print("Cached image used, no need to download it")
+                    cell.imageView?.image = self.cache.object(forKey: objectId as AnyObject) as? UIImage
+                } else {
+                    imageFile.getDataInBackground(block: { (data, error) in
+                        if error == nil {
+                            if let imageToDispaly = UIImage(data: data!) {
+                                DispatchQueue.main.async{
+                                    cell.imageView.image = imageToDispaly
+                                    self.cache.setObject(imageToDispaly, forKey: objectId  as AnyObject)
+                                }
+                                
+                            }
                             
                         }
-                    }
-                })
+                    })
+                }
                 cell.locationLabel.text = location
                 cell.titleLabel.text = title
                 cell.dateLabel.text = date
                 cell.layer.borderWidth = 2.5
                 cell.layer.borderColor = UIColor.darkGray.cgColor
+                cell.deletebtn.isHidden = !isEditing
+                cell.delegate = self
                 return cell
             }
         }
     }
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "CollectionViewHeader", for: indexPath)
-        return header
-    }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(isSearch) {
             let object = searchedArray[indexPath.row]
@@ -159,7 +183,10 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             var date:String!
             if object["imageFile"] != nil {
                 imageFile = object["imageFile"] as! PFFile
-                location = object["location"] as! String
+                location = object["location"] as? String
+                if((location == nil)){
+                    location = ""
+                }
                 title = object["title"] as! String
                 date = object["date"] as! String
                 imageFile.getDataInBackground(block: { (data, error) in
@@ -198,7 +225,10 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
                 var date:String!
                 if object["imageFile"] != nil {
                     imageFile = object["imageFile"] as! PFFile
-                    location = object["location"] as! String
+                    location = object["location"] as? String
+                    if((location == nil)){
+                        location = ""
+                    }
                     title = object["title"] as! String
                     date = object["date"] as! String
                     imageFile.getDataInBackground(block: { (data, error) in
@@ -227,6 +257,16 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             }
         }
     }
+    func deleteMemory(cell: ViewMemoryCollectionViewCell) {
+        if let indexPath = collectionView?.indexPath(for: cell) {
+            displayAlert(title: "Warning", message: "This memory will get deleted permanently")
+            self.files.remove(at: (indexPath.row))
+            self.files[indexPath.row - 1].deleteInBackground()
+            collectionView?.deleteItems(at: [indexPath])
+            collectionView?.reloadData()
+            self.collectionView?.collectionViewLayout.invalidateLayout()
+        }
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "previewVideo" {
             let videoSender = sender as! IndexPath
@@ -237,7 +277,10 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             var date:String!
             videoFile = object["videoFile"] as! PFFile
             if object["videoFile"] != nil {
-                location = object["location"] as! String
+                location = object["location"] as? String
+                if((location == nil)){
+                    location = ""
+                }
                 title = object["title"] as! String
                 date = object["date"] as! String
                 if let nextViewController = segue.destination as? PreviewVideoViewController{
@@ -249,11 +292,29 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             }
         }
     }
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        searchbutton.isEnabled = !editing
+        logoutButton.isEnabled = !editing
+        if let indexPaths = collectionView?.indexPathsForVisibleItems{
+            for indexPath in indexPaths {
+                if let cell = collectionView?.cellForItem(at: indexPath) as? ViewMemoryCollectionViewCell {
+                    if  cell.isEditing == editing {
+                        cell.alpha = 1
+                        cell.deletebtn.isHidden = true
+                    } else {
+                        cell.isEditing = false
+                        cell.deletebtn.isHidden = false
+                        cell.alpha = 0.7
+                    }
+                }
+                
+            }
+        }
+    }
     @IBAction func search(_ sender: Any) {
         searchController = UISearchController(searchResultsController: nil)
         searchController.hidesNavigationBarDuringPresentation = false
-        //        searchController.searchBar.text = searchText
-        
         searchController.searchBar.delegate = self
         self.present(searchController, animated: true, completion: nil)
         searchController.searchBar.backgroundColor = UIColor.black
@@ -261,40 +322,65 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         isSearch = true;
     }
-    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         isSearch = true;
         self.collectionView?.reloadData()
     }
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.collectionView?.restore()
         searchBar.resignFirstResponder()
         isSearch = false;
     }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         isSearch = false;
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchedArray = self.files.filter({ (object) -> Bool in
-            let location1:NSString = object["location"] as! NSString
+            var location:String!
+            if((location != nil)){
+                location = object["location"] as? String
+            }else{
+                location = ""
+            }
+            let location1:NSString = location! as NSString
             let title:NSString = object["title"] as! NSString
             let range1 = location1.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
             let range2 = title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
             return (range1.location != NSNotFound ||  range2.location != NSNotFound)
         })
         if(self.searchedArray.count == 0){
-            self.isSearch = false;
+            print("no items")
+            
+            self.collectionView?.setEmptyMessage("Nothing to show :(")
+            self.collectionView?.reloadData()
         } else {
-            self.isSearch = true;
+            self.collectionView?.restore()
+            self.isSearch = true
+            self.collectionView?.reloadData()
+            self.collectionView?.collectionViewLayout.invalidateLayout()
         }
-        self.collectionView?.reloadData()
     }
     
     @IBAction func logoutButton(_ sender: Any) {
         PFUser.logOut()
-        self.performSegue(withIdentifier: "logout", sender: self)
+        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginvc") as UIViewController
+        self.present(viewController, animated: false, completion: nil)
+    }
+}
+extension UICollectionView {
+    func setEmptyMessage(_ message: String) {
+        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        messageLabel.text = message
+        messageLabel.textColor = .white
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = .center;
+        messageLabel.font = UIFont(name: "TrebuchetMS", size: 30)
+        messageLabel.sizeToFit()
+        self.backgroundView = messageLabel;
+    }
+    func restore() {
+        self.backgroundView = nil
     }
 }

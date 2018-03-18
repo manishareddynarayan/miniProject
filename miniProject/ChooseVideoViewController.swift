@@ -22,12 +22,20 @@ class ChooseVideoViewController: UIViewController,UINavigationControllerDelegate
     let videoPicker = UIImagePickerController()
     var delegate: ChooseVideoViewControllerDelegate?
     @IBOutlet weak var videoDone: UIButton!
+    @IBOutlet weak var backgroungView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         galleryVideo()
         videoDone.buttonShape()
     }
-    
+    func displayAlert(title:String,message:String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            print("video selected")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
     func galleryVideo()
     {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum) {
@@ -48,6 +56,8 @@ class ChooseVideoViewController: UIViewController,UINavigationControllerDelegate
             let ass = AVAsset(url:url as URL)
             let videoData = NSData(contentsOfFile:(url.relativePath))
             self.videoDone.isHidden = false
+            self.backgroungView.isHidden = false
+            displayAlert(title: "successful", message: "Click Done to save the selected Video")
             if let videoThumbnail = ass.videoThumbnail{
                 let viewControllers = self.navigationController!.viewControllers as [UIViewController];
                 for aViewController:UIViewController in viewControllers {
@@ -55,7 +65,6 @@ class ChooseVideoViewController: UIViewController,UINavigationControllerDelegate
                         (aViewController as? CreateMemoryViewController)?.videoThumbnail = videoThumbnail
                         (aViewController as? CreateMemoryViewController)?.video = videoData
                     }
-                    
                 }
             }
         }
@@ -65,23 +74,20 @@ class ChooseVideoViewController: UIViewController,UINavigationControllerDelegate
     
     @IBAction func videoDoneOnClick(_ sender: Any) {
         delegate?.finishPassingVideo(controller: self)
-        
     }
 }
 
 extension AVAsset{
     var videoThumbnail:UIImage?{
         let assetImageGenerator = AVAssetImageGenerator(asset: self)
-        assetImageGenerator.appliesPreferredTrackTransform = true
+    assetImageGenerator.appliesPreferredTrackTransform = true
         var time = self.duration
         time.value = min(time.value, 2)
-        
         do {
             let imageRef = try assetImageGenerator.copyCGImage(at: time, actualTime: nil)
             let thumbNail = UIImage.init(cgImage: imageRef)
             print("Video Thumbnail genertated successfuly")
             return thumbNail
-            
         } catch {
             print("error getting thumbnail video")
             return nil

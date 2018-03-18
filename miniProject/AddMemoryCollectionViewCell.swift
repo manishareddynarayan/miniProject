@@ -9,9 +9,10 @@
 import UIKit
 
 class AddMemoryCollectionViewCell: UICollectionViewCell {
-    
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
+  
 }

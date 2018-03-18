@@ -24,7 +24,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                     </imageView>
                     <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NjF-K2-CEf">
-                        <rect key="frame" x="0.0" y="172" width="250" height="78"/>
+                        <rect key="frame" x="0.0" y="185" width="250" height="65"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6W-pG-UXW">
                                 <rect key="frame" x="81" y="8" width="161" height="21"/>
@@ -60,7 +60,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GnZ-L0-e54">
-                                <rect key="frame" x="8" y="42.5" width="42" height="21"/>
+                                <rect key="frame" x="8" y="43" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -101,31 +101,47 @@
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play-button-sing" translatesAutoresizingMaskIntoConstraints="NO" id="BWU-dJ-8FF">
-                        <rect key="frame" x="83" y="106" width="39" height="39"/>
+                        <rect key="frame" x="67" y="105" width="39" height="41"/>
                         <color key="backgroundColor" red="0.685945559164296" green="0.71512798095112529" blue="0.6998303091720518" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="39" id="xPX-63-59k"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfO-JF-VIs">
+                        <rect key="frame" x="62" y="110" width="85" height="30"/>
+                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="85" id="NPz-jb-jae"/>
+                        </constraints>
+                        <state key="normal" title="Delete">
+                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="deleteOnClick:" destination="gTV-IL-0wX" eventType="touchUpInside" id="K7G-Bd-3HB"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="NjF-K2-CEf" firstAttribute="top" secondItem="BWU-dJ-8FF" secondAttribute="bottom" constant="27" id="2OV-gu-FGk"/>
+                <constraint firstItem="NjF-K2-CEf" firstAttribute="top" secondItem="BWU-dJ-8FF" secondAttribute="bottom" constant="38.5" id="2OV-gu-FGk"/>
                 <constraint firstItem="NjF-K2-CEf" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="5bE-B0-dhS"/>
                 <constraint firstAttribute="bottom" secondItem="9Mf-AF-m6g" secondAttribute="bottom" id="Bdl-hV-y18"/>
                 <constraint firstItem="9Mf-AF-m6g" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="EXc-TT-Va7"/>
                 <constraint firstAttribute="bottom" secondItem="NjF-K2-CEf" secondAttribute="bottom" id="FA8-R6-Mg9"/>
                 <constraint firstItem="BWU-dJ-8FF" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Ng5-V1-w04"/>
+                <constraint firstItem="jfO-JF-VIs" firstAttribute="centerY" secondItem="BWU-dJ-8FF" secondAttribute="centerY" id="Nnw-KR-Ouw"/>
                 <constraint firstAttribute="trailing" secondItem="NjF-K2-CEf" secondAttribute="trailing" id="V5l-EH-nvm"/>
                 <constraint firstAttribute="trailing" secondItem="9Mf-AF-m6g" secondAttribute="trailing" id="ZgK-yI-omG"/>
-                <constraint firstItem="NjF-K2-CEf" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="172" id="iwM-5K-vet"/>
+                <constraint firstItem="BWU-dJ-8FF" firstAttribute="top" secondItem="9Mf-AF-m6g" secondAttribute="bottom" constant="-145" id="dZb-nq-5ba"/>
+                <constraint firstItem="jfO-JF-VIs" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="62" id="iJy-yN-7h9"/>
                 <constraint firstItem="9Mf-AF-m6g" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="kIo-bs-f8l"/>
-                <constraint firstItem="BWU-dJ-8FF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="83" id="n7d-gJ-2vK"/>
+                <constraint firstItem="BWU-dJ-8FF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="67" id="n7d-gJ-2vK"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="233" height="188"/>
             <connections>
                 <outlet property="dateLabel" destination="EzT-ns-i9n" id="W1D-My-1L6"/>
+                <outlet property="deletebtn" destination="jfO-JF-VIs" id="rYS-RQ-T9v"/>
                 <outlet property="imageView" destination="9Mf-AF-m6g" id="IQw-1R-MHH"/>
                 <outlet property="locationLabel" destination="X2R-Y6-zEk" id="luH-fx-VDU"/>
                 <outlet property="playImage" destination="BWU-dJ-8FF" id="gHH-af-5Ns"/>

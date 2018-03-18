@@ -34,6 +34,13 @@ class ChooseLocationViewController: UIViewController {
         searchController?.searchBar.placeholder = "Location"
         definesPresentationContext = true
     }
+    func displayAlert(title:String,message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            print("location selcted")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     @IBAction func selectLocationOnClick(_ sender: Any) {
         delegate?.finishPassingLocation(controller: self)
@@ -50,7 +57,8 @@ extension ChooseLocationViewController: GMSAutocompleteResultsViewControllerDele
         for aViewController:UIViewController in viewControllers {
             if aViewController.isKind(of: CreateMemoryViewController.self) {
                 (aViewController as? CreateMemoryViewController)?.userLocation = searchController?.searchBar.text
-                searchController?.searchResultsController?.dismiss(animated: true, completion: nil)           
+                searchController?.searchResultsController?.dismiss(animated: true, completion: nil)
+                displayAlert(title: "successful", message: "Click Done to save the location")
                 self.doneButton.isHidden = false
             }
         }
@@ -58,17 +66,13 @@ extension ChooseLocationViewController: GMSAutocompleteResultsViewControllerDele
         print("Place address: \(String(describing: place.formattedAddress))")
         print("Place attributions: \(String(describing: place.attributions))")
     }
-    
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didFailAutocompleteWithError error: Error){
         print("Error: ", error.localizedDescription)
     }
-    
-    // Turn the network activity indicator on and off again.
     func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
-    
     func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         

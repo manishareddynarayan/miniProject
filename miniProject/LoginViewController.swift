@@ -9,18 +9,17 @@
 import UIKit
 import Parse
 import TextFieldEffects
-
 class LoginViewController: UIViewController {
     var signUp = false
     @IBOutlet weak var usernameTextField: KaedeTextField!
     @IBOutlet weak var passwordTextField: KaedeTextField!
     @IBOutlet weak var switchMode: UIButton!
     @IBOutlet weak var loginOrSignup: UIButton!
+    var window: UIWindow?
     override func viewDidLoad() {
         super.viewDidLoad()
         switchMode.buttonShape()
         loginOrSignup.buttonShape()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     override func viewDidAppear(_ animated: Bool) {
         if PFUser.current() != nil {
@@ -75,7 +74,6 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
     @IBAction func switchButton(_ sender: Any) {
         if signUp {
             signUp = false
@@ -87,7 +85,14 @@ class LoginViewController: UIViewController {
             switchMode.setTitle("login", for: [])
         }
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "home"
+        {
+            if let destinationVC = segue.destination as? HomeCollectionViewController {
+                destinationVC.isSearch = false
+            }
+        }
+    }
 }
 extension UIButton {
     func buttonShape() {

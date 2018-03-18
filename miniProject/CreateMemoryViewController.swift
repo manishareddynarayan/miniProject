@@ -15,23 +15,27 @@ class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDele
     @IBOutlet weak var titleTextField: JiroTextField!
     @IBOutlet weak var chooseImageButton: UIButton!
     @IBOutlet weak var chooseVideoButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var chooseLocationButton: UIButton!
     @IBOutlet weak var createMemoryOnClick: UIButton!
     var image:UIImage?
     var userLocation:String?
     var videoThumbnail:UIImage?
     var video:NSData?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         chooseImageButton.buttonShape()
         chooseVideoButton.buttonShape()
         chooseLocationButton.buttonShape()
         createMemoryOnClick.buttonShape()
+        activityIndicator.isHidden = true
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func displayAlert(title:String,message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            print("check error")
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func chooseImage(_ sender: Any) {
@@ -55,71 +59,87 @@ class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDele
         memory["userid"] = PFUser.current()?.objectId
         if let image = image {
             if let imageData = UIImagePNGRepresentation(image) {
-                let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-                activityIndicator.center = self.view.center
+                activityIndicator.isHidden = false
                 activityIndicator.hidesWhenStopped = true
-                activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-                view.addSubview(activityIndicator)
+                activityIndicator.color = UIColor.black
                 activityIndicator.startAnimating()
                 UIApplication.shared.beginIgnoringInteractionEvents()
                 let imageFile = PFFile(name: "image.png", data: imageData)
                 memory["type"] = true
                 memory["date"] = date
-                memory["imageFile"] = imageFile
-                memory["title"] = titleTextField.text
-                memory["location"] = userLocation
-                memory.saveInBackground { (success, error) in
-                    activityIndicator.stopAnimating()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                    if success {
-                        self.titleTextField.text = nil
-                        
-                    } else {
-                        print(error)
+                if imageFile != nil {
+                    memory["imageFile"] = imageFile
+                    memory["title"] = titleTextField.text
+                    if((userLocation != nil)){
+                        memory["location"] = userLocation
+                    }else{
+                        userLocation = ""
+                    }
+                    memory.saveInBackground { (success, error) in
+                        self.activityIndicator.stopAnimating()
+                        self.activityIndicator.isHidden = true
+                        UIApplication.shared.endIgnoringInteractionEvents()
+                        if success {
+                            self.displayAlert(title: "successful", message: "Your memory is Saved!")
+                            self.titleTextField.text = nil
+                            
+                        } else {
+                            self.displayAlert(title: "Error", message: "Please enter All the values")
+                        }
                     }
                 }
+                else{
+                    activityIndicator.stopAnimating()
+                }
             }
-        } else {
+        }else if let video = video {
             if let videoThumbnail = videoThumbnail {
                 if let imageData = UIImagePNGRepresentation(videoThumbnail) {
                     let videoThumbnail = PFFile(name: "thubnail.png", data: imageData)
                     memory["thumbnail"] = videoThumbnail
                 }
             }
-            if let video = video {
-                let videoFile:PFFile = PFFile(name:"consent.mp4", data:video as Data)!
-                memory["videoFile"] = videoFile
-            }
-            let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            activityIndicator.center = self.view.center
+            activityIndicator.isHidden = false
             activityIndicator.hidesWhenStopped = true
-            activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-            view.addSubview(activityIndicator)
+            activityIndicator.color = UIColor.black
+            activityIndicator.startAnimating()
+            let videoFile:PFFile = PFFile(name:"consent.mp4", data:video as Data)!
+            memory["videoFile"] = videoFile
+            activityIndicator.hidesWhenStopped = true
             activityIndicator.startAnimating()
             UIApplication.shared.beginIgnoringInteractionEvents()
             memory["date"] = date
             memory["title"] = titleTextField.text
-            memory["location"] = userLocation
+            if((userLocation != nil)){
+                memory["location"] = userLocation
+            }else{
+                userLocation = ""
+            }
             memory.saveInBackground { (success, error) in
-                activityIndicator.stopAnimating()
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
                 UIApplication.shared.endIgnoringInteractionEvents()
                 if success {
+                    self.displayAlert(title: "successful", message: "Your memory is Saved!")
                     self.titleTextField.text = nil
-                    
                 } else {
-                    print(error)
+                    self.displayAlert(title: "Error", message: "Please enter All the values")
                 }
             }
-            
+        } else {
+            self.displayAlert(title: "Error", message: "Please enter All the values")
         }
     }
+    
     func finishPassingVideo(controller: ChooseVideoViewController) {
         print("videoChoosen")
+        chooseImageButton.alpha = 0.8
         chooseImageButton.isUserInteractionEnabled = false
         controller.navigationController?.popViewController(animated: true)
     }
     func finishPassingImage(controller: ChooseImageViewController) {
         print("image choosen")
+        chooseVideoButton.alpha = 0.8
         chooseVideoButton.isUserInteractionEnabled = false
         controller.navigationController?.popViewController(animated: true)
     }
