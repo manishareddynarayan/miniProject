@@ -9,7 +9,7 @@ import Parse
 class HomeCollectionViewController: UICollectionViewController,UISearchBarDelegate,ViewMemoryCollectionViewCellDelegate{
     var searchController = UISearchController()
     var imageFiles = [PFFile]()
-    var files = [PFObject]()
+    var memories = [PFObject]()
     var backgroundImage = UIImage()
     var searchElements = [""]
     var isSearch = false
@@ -46,7 +46,7 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
         query.findObjectsInBackground{ (objects, error) -> Void in
             if error == nil {
                 print("OK")
-                self.files = objects!.reversed()
+                self.memories = objects!.reversed()
                 DispatchQueue.main.async {
                     self.collectionView?.reloadData()
                     self.collectionView?.collectionViewLayout.invalidateLayout()
@@ -60,7 +60,7 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
         if(isSearch) {
             return searchedArray.count
         }
-        return (files.count + 1)
+        return (memories.count + 1)
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ViewCell", for: indexPath) as! ViewMemoryCollectionViewCell
@@ -107,7 +107,7 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
                 cell.layer.borderColor = UIColor.darkGray.cgColor
                 return cell
             } else {
-                let object = files[indexPath.row - 1]
+                let object = memories[indexPath.row - 1]
                 var imageFile:PFFile!
                 var location:String?
                 var title:String!
@@ -206,7 +206,7 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
                 self.performSegue(withIdentifier: "CreateMemory", sender: self)
                 return
             } else {
-                let object = files[indexPath.row - 1]
+                let object = memories[indexPath.row - 1]
                 var imageFile:PFFile!
                 var videoFile:PFFile!
                 var location:String!
@@ -248,7 +248,7 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "previewVideo" {
             let videoSender = sender as! IndexPath
-            let object = files[videoSender.row - 1]
+            let object = memories[videoSender.row - 1]
             var videoFile:PFFile!
             var location:String!
             var title:String!
@@ -276,8 +276,8 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             ac.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
                 (action:UIAlertAction!) -> Void in
-                self.files.remove(at: (indexPath.row))
-                self.files[indexPath.row - 1].deleteInBackground()
+                self.memories.remove(at: (indexPath.row))
+                self.memories[indexPath.row - 1].deleteInBackground()
                 self.collectionView?.deleteItems(at: [indexPath])
                 self.collectionView?.reloadData()
                 self.collectionView?.collectionViewLayout.invalidateLayout() }))
@@ -329,7 +329,7 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
         isSearch = false;
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchedArray = self.files.filter({ (object) -> Bool in
+        searchedArray = self.memories.filter({ (object) -> Bool in
             var location:String!
             if((location != nil)){
                 location = object["location"] as? String
