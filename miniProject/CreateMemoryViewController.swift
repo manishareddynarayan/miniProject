@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import TextFieldEffects
 import Parse
-class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDelegate ,ChooseVideoViewControllerDelegate, ChooseLocationViewControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDelegate ,ChooseVideoViewControllerDelegate, ChooseLocationViewControllerDelegate{
     
     @IBOutlet weak var titleTextField: JiroTextField!
     @IBOutlet weak var chooseImageButton: UIButton!
