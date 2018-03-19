@@ -29,21 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey("AIzaSyBlVOyMLjnJU8ucHv37ZIEYzKLdNv8pfvY")
         if PFUser.current() != nil {
             self.window = UIWindow(frame: UIScreen.main.bounds)
-            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "homevc")
-            
             self.window?.rootViewController = initialViewController
             self.window?.makeKeyAndVisible()
 
         } else {
             self.window = UIWindow(frame: UIScreen.main.bounds)
-            
             let storyboard = UIStoryboard(name: "loginvc", bundle: nil)
-            
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-            
             self.window?.rootViewController = initialViewController
             self.window?.makeKeyAndVisible()
         }

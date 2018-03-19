@@ -44,25 +44,6 @@ class PreviewVideoViewController: UIViewController,AVPlayerViewControllerDelegat
         try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [])
         self.avPlayer!.play()
     }
-    
-    func downloadFile(url: NSURL) {
-        let downloadRequest = NSURLRequest(url: url as URL)
-        URLSession.shared.downloadTask(with: downloadRequest as URLRequest){ (location, response, error) in
-            
-            guard  let tempLocation = location, error == nil else { return }
-            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-            let fullURL = documentDirectory?.appendingPathComponent((response?.suggestedFilename)!)
-            do {
-                try FileManager.default.moveItem(at: tempLocation, to: fullURL!)
-            } catch CocoaError.fileReadNoSuchFile {
-                print("No such file")
-            } catch {
-                print("Error downloading file : \(error)")
-            }
-            
-            }.resume()
-        
-    }
     override func viewWillAppear(_ animated: Bool) {
         titleLabel.text = videoTitle
         locationLabel.text = location
@@ -80,7 +61,7 @@ class PreviewVideoViewController: UIViewController,AVPlayerViewControllerDelegat
     }
     
     @IBAction func share(_ sender: Any) {
-        let activityVc = UIActivityViewController(activityItems: [self.videoFile], applicationActivities: nil)
+        let activityVc = UIActivityViewController(activityItems: [self.videoFile as Any], applicationActivities: nil)
         activityVc.popoverPresentationController?.sourceView = self.view
         self.present(activityVc, animated: true, completion: nil)
     }

@@ -1,11 +1,8 @@
 //
 //  HomeCollectionViewController.swift
 //  miniProject
-//
 //  Created by Manisha Reddy Narayan on 05/03/18.
 //  Copyright © 2018 Manisha Reddy Narayan. All rights reserved.
-//
-
 import UIKit
 import Parse
 
@@ -43,7 +40,6 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
         super.viewWillAppear(animated)
         getImages()
     }
-    
     func getImages() -> Void {
         let query = PFQuery(className: "Memory")
         query.whereKey("userid", equalTo: PFUser.current()?.objectId! as Any)
@@ -246,22 +242,7 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
                         self.performSegue(withIdentifier: "previewVideo", sender: indexPath)
                     }
                 }
-                
             }
-        }
-    }
-    func deleteMemory(cell: ViewMemoryCollectionViewCell) {
-        if let indexPath = collectionView?.indexPath(for: cell) {
-            let ac = UIAlertController(title: "Warning", message: "Do u want to delete it?", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            ac.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
-                (action:UIAlertAction!) -> Void in
-                self.files.remove(at: (indexPath.row))
-                self.files[indexPath.row - 1].deleteInBackground()
-                self.collectionView?.deleteItems(at: [indexPath])
-                self.collectionView?.reloadData()
-                self.collectionView?.collectionViewLayout.invalidateLayout() }))
-                present(ac, animated: true, completion: nil)
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -287,6 +268,20 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
                     nextViewController.videoTitle = title
                 }
             }
+        }
+    }
+    func deleteMemory(cell: ViewMemoryCollectionViewCell) {
+        if let indexPath = collectionView?.indexPath(for: cell) {
+            let ac = UIAlertController(title: "Warning", message: "Are you sure you want to delete it?", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            ac.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+                (action:UIAlertAction!) -> Void in
+                self.files.remove(at: (indexPath.row))
+                self.files[indexPath.row - 1].deleteInBackground()
+                self.collectionView?.deleteItems(at: [indexPath])
+                self.collectionView?.reloadData()
+                self.collectionView?.collectionViewLayout.invalidateLayout() }))
+            present(ac, animated: true, completion: nil)
         }
     }
     override func setEditing(_ editing: Bool, animated: Bool) {

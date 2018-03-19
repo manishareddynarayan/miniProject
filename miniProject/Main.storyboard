@@ -493,15 +493,6 @@
                                             <action selector="chooseImage:" destination="2VR-fY-Pni" eventType="touchUpInside" id="Ph4-ji-6iu"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create A Memory" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FD4-3a-EOt">
-                                        <rect key="frame" x="45" y="20" width="210" height="55"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="55" id="T9n-EH-8Xv"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="27"/>
-                                        <color key="textColor" red="0.0" green="0.21331376163384758" blue="0.37715335211522849" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RdJ-3D-ueW">
                                         <rect key="frame" x="45" y="154" width="210" height="39"/>
                                         <color key="backgroundColor" red="0.40613581488386385" green="0.90688084198629437" blue="0.76913956052937393" alpha="0.61627782529999997" colorSpace="custom" customColorSpace="sRGB"/>
@@ -571,6 +562,15 @@
                                         </constraints>
                                         <color key="color" red="0.028156304229999998" green="0.023994258540000001" blue="0.044852474619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create A Memory" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FD4-3a-EOt">
+                                        <rect key="frame" x="8" y="31" width="284" height="55"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="T9n-EH-8Xv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="33"/>
+                                        <color key="textColor" red="0.0" green="0.21331376163384758" blue="0.37715335211522849" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.45085787770000002" green="0.98829740290000001" blue="0.83763033149999999" alpha="0.61627782534246578" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -583,11 +583,11 @@
                                     <constraint firstItem="RdJ-3D-ueW" firstAttribute="top" secondItem="Buh-zi-Meo" secondAttribute="bottom" constant="5" id="5w7-1P-vvX"/>
                                     <constraint firstItem="FD4-3a-EOt" firstAttribute="centerX" secondItem="aVp-sK-pFR" secondAttribute="centerX" id="BQ0-9v-YRb"/>
                                     <constraint firstAttribute="trailing" secondItem="3eP-dq-s8n" secondAttribute="trailing" constant="127.5" id="HEB-Cj-Vkg"/>
-                                    <constraint firstItem="Buh-zi-Meo" firstAttribute="top" secondItem="FD4-3a-EOt" secondAttribute="bottom" constant="35" id="KX7-5Z-YBd"/>
+                                    <constraint firstItem="Buh-zi-Meo" firstAttribute="top" secondItem="FD4-3a-EOt" secondAttribute="bottom" constant="24" id="KX7-5Z-YBd"/>
                                     <constraint firstItem="3eP-dq-s8n" firstAttribute="leading" secondItem="aVp-sK-pFR" secondAttribute="leading" constant="127.5" id="M3K-7I-cco"/>
-                                    <constraint firstItem="FD4-3a-EOt" firstAttribute="leading" secondItem="RdJ-3D-ueW" secondAttribute="leading" id="Qgk-ZH-E8o"/>
+                                    <constraint firstItem="FD4-3a-EOt" firstAttribute="leading" secondItem="RdJ-3D-ueW" secondAttribute="leading" constant="-37" id="Qgk-ZH-E8o"/>
                                     <constraint firstItem="aNY-1u-skX" firstAttribute="top" secondItem="Ps1-Q1-xeF" secondAttribute="bottom" constant="29" id="Y1j-SR-RkY"/>
-                                    <constraint firstItem="FD4-3a-EOt" firstAttribute="trailing" secondItem="RdJ-3D-ueW" secondAttribute="trailing" id="Yhh-oK-Rl2"/>
+                                    <constraint firstItem="FD4-3a-EOt" firstAttribute="trailing" secondItem="RdJ-3D-ueW" secondAttribute="trailing" constant="37" id="Yhh-oK-Rl2"/>
                                     <constraint firstAttribute="bottom" secondItem="MBN-NA-Vgz" secondAttribute="bottom" constant="40" id="bTD-0f-TYf"/>
                                     <constraint firstItem="MBN-NA-Vgz" firstAttribute="leading" secondItem="aVp-sK-pFR" secondAttribute="leading" constant="108" id="huh-rA-Igs"/>
                                     <constraint firstItem="3eP-dq-s8n" firstAttribute="centerX" secondItem="aNY-1u-skX" secondAttribute="centerX" id="ifx-Wv-j62"/>
@@ -597,7 +597,7 @@
                                     <constraint firstItem="Ps1-Q1-xeF" firstAttribute="leading" secondItem="aVp-sK-pFR" secondAttribute="leading" constant="45" id="ppA-sj-pDa"/>
                                     <constraint firstItem="Buh-zi-Meo" firstAttribute="leading" secondItem="aVp-sK-pFR" secondAttribute="leading" constant="45" id="q5o-L0-ft1"/>
                                     <constraint firstItem="MBN-NA-Vgz" firstAttribute="top" secondItem="3eP-dq-s8n" secondAttribute="bottom" constant="43" id="qlS-hG-V2N"/>
-                                    <constraint firstItem="FD4-3a-EOt" firstAttribute="top" secondItem="aVp-sK-pFR" secondAttribute="top" constant="20" id="y1X-cx-mZc"/>
+                                    <constraint firstItem="FD4-3a-EOt" firstAttribute="top" secondItem="aVp-sK-pFR" secondAttribute="top" constant="31" id="y1X-cx-mZc"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -695,7 +695,6 @@
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xOy-Ls-szB">
                                 <rect key="frame" x="0.0" y="64" width="375" height="306"/>
-                                <color key="backgroundColor" red="0.20691269048799443" green="0.82776440797614215" blue="0.444393396204739" alpha="0.61627782534246578" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="306" id="yBa-7K-iEA"/>
                                 </constraints>
