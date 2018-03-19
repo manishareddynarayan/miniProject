@@ -5,7 +5,6 @@
 //  Copyright © 2018 Manisha Reddy Narayan. All rights reserved.
 import UIKit
 import Parse
-
 class HomeCollectionViewController: UICollectionViewController,UISearchBarDelegate,ViewMemoryCollectionViewCellDelegate{
     var searchController = UISearchController()
     var imageFiles = [PFFile]()
