@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import TextFieldEffects
 import Parse
-class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDelegate ,ChooseVideoViewControllerDelegate, ChooseLocationViewControllerDelegate{
+class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDelegate ,ChooseVideoViewControllerDelegate, ChooseLocationViewControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     
     @IBOutlet weak var titleTextField: JiroTextField!
     @IBOutlet weak var chooseImageButton: UIButton!
@@ -30,6 +30,11 @@ class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDele
         createMemoryOnClick.buttonShape()
         activityIndicator.isHidden = true
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+    }
     func displayAlert(title:String,message:String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
@@ -41,7 +46,6 @@ class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDele
     @IBAction func chooseImage(_ sender: Any) {
         self.performSegue(withIdentifier: "ChooseImage", sender: self)
     }
-    
     @IBAction func chooseVideo(_ sender: Any) {
         self.performSegue(withIdentifier: "ChooseVideo" , sender: self)
     }
@@ -130,7 +134,6 @@ class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDele
             self.displayAlert(title: "Error", message: "Please enter All the values")
         }
     }
-    
     func finishPassingVideo(controller: ChooseVideoViewController) {
         print("videoChoosen")
         chooseImageButton.alpha = 0.8

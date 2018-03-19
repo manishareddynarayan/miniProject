@@ -25,17 +25,7 @@ class ViewMemoryCollectionViewCell: UICollectionViewCell,UIGestureRecognizerDele
         super.awakeFromNib()
         deletebtn.buttonShape()
     }
-    func displayAlert(title:String,message:String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            print("no results")
-        }))
-        
-       self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-    }
-    
     @IBAction func deleteOnClick(_ sender: Any) {
-        self.displayAlert(title: "Warning", message: "This memory is deleted permanently")
         delegate?.deleteMemory(cell: self)
     }
 }

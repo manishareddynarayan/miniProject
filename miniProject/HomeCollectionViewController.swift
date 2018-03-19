@@ -43,16 +43,10 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
         super.viewWillAppear(animated)
         getImages()
     }
-    func displayAlert(title:String,message:String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            print("no results")
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
+    
     func getImages() -> Void {
         let query = PFQuery(className: "Memory")
-        query.whereKey("userid", equalTo: PFUser.current()?.objectId!)
+        query.whereKey("userid", equalTo: PFUser.current()?.objectId! as Any)
         query.findObjectsInBackground{ (objects, error) -> Void in
             if error == nil {
                 print("OK")
@@ -80,7 +74,6 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             var location:String!
             var title:String!
             var date:String!
-            var objectId: String?
             location = object["location"] as? String
             if((location == nil)){
                 location = ""
@@ -259,12 +252,16 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
     }
     func deleteMemory(cell: ViewMemoryCollectionViewCell) {
         if let indexPath = collectionView?.indexPath(for: cell) {
-            displayAlert(title: "Warning", message: "This memory will get deleted permanently")
-            self.files.remove(at: (indexPath.row))
-            self.files[indexPath.row - 1].deleteInBackground()
-            collectionView?.deleteItems(at: [indexPath])
-            collectionView?.reloadData()
-            self.collectionView?.collectionViewLayout.invalidateLayout()
+            let ac = UIAlertController(title: "Warning", message: "Do u want to delete it?", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            ac.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+                (action:UIAlertAction!) -> Void in
+                self.files.remove(at: (indexPath.row))
+                self.files[indexPath.row - 1].deleteInBackground()
+                self.collectionView?.deleteItems(at: [indexPath])
+                self.collectionView?.reloadData()
+                self.collectionView?.collectionViewLayout.invalidateLayout() }))
+                present(ac, animated: true, completion: nil)
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
