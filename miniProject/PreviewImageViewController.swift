@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class PreviewImageViewController: UIViewController {
+class PreviewImageViewController: UIViewController ,UITextFieldDelegate{
     
     @IBOutlet weak var previewImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -28,6 +28,13 @@ class PreviewImageViewController: UIViewController {
         titleLabel.text = title1
         locationLabel.text = location
         dateLabel.text = date
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     @IBAction func share(_ sender: Any) {
         let activityVc = UIActivityViewController(activityItems: [self.previewImageView.image!], applicationActivities: nil)

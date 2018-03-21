@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import TextFieldEffects
 import Parse
-class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDelegate ,ChooseVideoViewControllerDelegate, ChooseLocationViewControllerDelegate{
+class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDelegate ,ChooseVideoViewControllerDelegate, ChooseLocationViewControllerDelegate,UITextFieldDelegate,UIScrollViewDelegate{
     
     @IBOutlet weak var titleTextField: JiroTextField!
     @IBOutlet weak var chooseImageButton: UIButton!
@@ -18,6 +18,7 @@ class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDele
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var chooseLocationButton: UIButton!
     @IBOutlet weak var createMemoryOnClick: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     var image:UIImage?
     var userLocation:String?
     var videoThumbnail:UIImage?
@@ -29,12 +30,39 @@ class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDele
         chooseLocationButton.buttonShape()
         createMemoryOnClick.buttonShape()
         activityIndicator.isHidden = true
+        scrollView.delegate = self
+        scrollView.bounces = false
+        
     }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+         scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: (scrollView.frame.size.height))
+        self.view.endEditing(true)
+
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        titleTextField.resignFirstResponder()
+        scrollView.contentSize = CGSize(width: self.scrollView.frame.size.width, height: (scrollView.frame.size.height))
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField:UITextField){
+        let point = CGPoint(x: 0, y: textField.frame.origin.y)
+        self.scrollView.setContentOffset(point, animated: true)
+        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let point = CGPoint(x: 0, y: 0)
+        self.scrollView.setContentOffset(point, animated: true)
+    }
+
     func displayAlert(title:String,message:String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
@@ -59,6 +87,11 @@ class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDele
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyy\nH:mm:ss"
         let date = formatter.string(from: now)
+        let convertedDate = formatter.date(from: date)
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        let UTCDate = formatter.string(from: convertedDate!)
+        
+//        let date = formatter.string(from: now)
         let memory = PFObject(className: "Memory")
         memory["userid"] = PFUser.current()?.objectId
         if let image = image {
@@ -70,7 +103,7 @@ class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDele
                 UIApplication.shared.beginIgnoringInteractionEvents()
                 let imageFile = PFFile(name: "image.png", data: imageData)
                 memory["type"] = true
-                memory["date"] = date
+                memory["date"] = UTCDate
                 if imageFile != nil {
                     memory["imageFile"] = imageFile
                     memory["title"] = titleTextField.text
@@ -112,7 +145,7 @@ class CreateMemoryViewController: UIViewController,ChooseImageViewControllerDele
             activityIndicator.hidesWhenStopped = true
             activityIndicator.startAnimating()
             UIApplication.shared.beginIgnoringInteractionEvents()
-            memory["date"] = date
+            memory["date"] = UTCDate
             memory["title"] = titleTextField.text
             if((userLocation != nil)){
                 memory["location"] = userLocation

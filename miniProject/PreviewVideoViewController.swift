@@ -34,7 +34,7 @@ class PreviewVideoViewController: UIViewController,AVPlayerViewControllerDelegat
         self.view.addSubview(avPlayerController.view)
         playVideo(videoFile: videoFile!)
     }
-    
+
     func playVideo(videoFile:PFFile){
         let url = URL.init(string: videoFile.url!)
         let asset  = AVAsset(url: url!)

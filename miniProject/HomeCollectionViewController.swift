@@ -69,6 +69,12 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             var location:String!
             var title:String!
             var date:String!
+            let formatter = DateFormatter()
+
+//            let convertedDate = formatter.date(from: date)
+//            formatter.timeZone = TimeZone(identifier: "Local")
+//            let UTCDate = formatter.string(from: convertedDate!)
+
             location = object["location"] as? String
             if((location == nil)){
                 location = ""
@@ -94,7 +100,10 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
             })
             cell.locationLabel.text = location
             cell.titleLabel.text = title
-            cell.dateLabel.text = date
+            let convertedDate = formatter.date(from: date)
+            formatter.timeZone = TimeZone(identifier: "Local")
+            let UTCDate = formatter.string(from: convertedDate!)
+            cell.dateLabel.text = UTCDate
             cell.layer.borderWidth = 2.5
             cell.layer.borderColor = UIColor.darkGray.cgColor
             return cell
@@ -112,6 +121,8 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
                 var title:String!
                 var date:String!
                 var objectId:String?
+                let formatter = DateFormatter()
+
                 location = object["location"] as? String
                 if((location == nil)){
                     location = ""
@@ -151,7 +162,11 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
                 }
                 cell.locationLabel.text = location
                 cell.titleLabel.text = title
-                cell.dateLabel.text = date
+                formatter.dateFormat = "dd-MM-yyy\nH:mm:ss"
+                let convertedDate = formatter.date(from: date)
+                formatter.timeZone = TimeZone.current
+                let UTCDate = formatter.string(from: convertedDate!)
+                cell.dateLabel.text = UTCDate
                 cell.layer.borderWidth = 2.5
                 cell.layer.borderColor = UIColor.darkGray.cgColor
                 cell.deletebtn.isHidden = !isEditing
@@ -311,22 +326,23 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
         searchController.searchBar.backgroundColor = UIColor.black
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isSearch = true;
+        isSearch = true
     }
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        isSearch = true;
+        isSearch = false
         self.collectionView?.reloadData()
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.collectionView?.restore()
         searchBar.resignFirstResponder()
-        isSearch = false;
+        isSearch = false
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        isSearch = false;
+        isSearch = false
     }
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchedArray = self.memories.filter({ (object) -> Bool in
             var location:String!
@@ -343,7 +359,6 @@ class HomeCollectionViewController: UICollectionViewController,UISearchBarDelega
         })
         if(self.searchedArray.count == 0){
             print("no items")
-            
             self.collectionView?.setEmptyMessage("Nothing to show :(")
             self.collectionView?.reloadData()
         } else {

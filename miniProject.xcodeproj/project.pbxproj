@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7B37F3192056337F00A5433E /* PreviewVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B37F3182056337F00A5433E /* PreviewVideoViewController.swift */; };
 		7B37F31F2057EA0400A5433E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B37F31E2057EA0400A5433E /* AVFoundation.framework */; };
+		7B49E9812060B12C00AD2688 /* PassTouchesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B49E9802060B12C00AD2688 /* PassTouchesScrollView.swift */; };
 		7B6D1AA02052B36A00E6C133 /* PreviewImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D1A9F2052B36A00E6C133 /* PreviewImageViewController.swift */; };
 		7B7DEEED204815860054D6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEEEC204815860054D6D0 /* AppDelegate.swift */; };
 		7B7DEEEF204815860054D6D0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DEEEE204815860054D6D0 /* LoginViewController.swift */; };
@@ -54,6 +55,7 @@
 		7B37F3182056337F00A5433E /* PreviewVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewVideoViewController.swift; sourceTree = "<group>"; };
 		7B37F31C2057E9D100A5433E /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		7B37F31E2057EA0400A5433E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		7B49E9802060B12C00AD2688 /* PassTouchesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassTouchesScrollView.swift; sourceTree = "<group>"; };
 		7B6D1A9F2052B36A00E6C133 /* PreviewImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageViewController.swift; sourceTree = "<group>"; };
 		7B7DEEE9204815860054D6D0 /* miniProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = miniProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7DEEEC204815860054D6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			children = (
 				7B7DEEEC204815860054D6D0 /* AppDelegate.swift */,
 				7BD85D6A204FBD80006C71D6 /* Main.storyboard */,
+				7B49E9802060B12C00AD2688 /* PassTouchesScrollView.swift */,
 				7B7DEEEE204815860054D6D0 /* LoginViewController.swift */,
 				7BD85D5C204D17E0006C71D6 /* HomeCollectionViewController.swift */,
 				7BD85D66204E8324006C71D6 /* CreateMemoryViewController.swift */,
@@ -399,6 +402,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B49E9812060B12C00AD2688 /* PassTouchesScrollView.swift in Sources */,
 				7BD85D64204D1D1A006C71D6 /* ViewMemoryCollectionViewCell.swift in Sources */,
 				7B98C5EA2050EBC700466BE7 /* ChooseVideoViewController.swift in Sources */,
 				7B98C5E8204FE53900466BE7 /* ChooseImageViewController.swift in Sources */,
